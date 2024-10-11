@@ -12,7 +12,7 @@ message = "Hello"
 if (len(sys.argv)>1):
         message=str(sys.argv[1])
 if (len(sys.argv)>2):
-        bits=int(sys.argv[2])
+        key_size=int(sys.argv[2])
 
 # Generate prime numbers p and q
 prime_p = getPrime(key_size, randfunc=get_random_bytes)
