@@ -31,6 +31,11 @@ private_exponent_d = libnum.invmod(public_exponent_e, totient_phi)
 # Convert the message to a number (plaintext)
 plaintext_m = bytes_to_long(message.encode('utf-8'))
 
+# Check if the message is too large for encryption (should be smaller than n)
+if plaintext_m >= modulus_n:
+    print(f"Error: Message is too long to encrypt with the given key size of {key_size} bits.")
+    sys.exit(1)
+
 # Encrypt the plaintext to produce the ciphertext
 ciphertext_c = pow(plaintext_m, public_exponent_e, modulus_n)
 
