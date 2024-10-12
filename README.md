@@ -21,3 +21,12 @@ To install the dependencies, use:
 
 ```bash
 pip install -r requirements.txt
+```
+
+## Running the Program
+To run the program, use:
+```bash
+python rsa.py [message] [key_size]
+```
+- **message**: The message to be encrypted (optional, default is "Hello").
+- **key_size**: The size of the RSA key in bits (optional, default is 2048 bits).

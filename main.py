@@ -4,7 +4,7 @@ from Crypto.Random import get_random_bytes
 from Crypto.Util.number import getPrime, bytes_to_long, long_to_bytes
 
 # Default key length for primes
-key_size = 128
+key_size = 2048
 # Message to be encrypted and decrypted
 message = "Hello"
 
