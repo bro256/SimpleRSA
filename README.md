@@ -30,3 +30,9 @@ python rsa.py [message] [key_size]
 ```
 - **message**: The message to be encrypted (optional, default is "Hello").
 - **key_size**: The size of the RSA key in bits (optional, default is 2048 bits).
+
+## How It Works
+
+### Key Generation
+
+The program begins by generating two large prime numbers, `p` and `q`, using the `getPrime` function from the PyCryptodome library. The product of these two primes, `n`, is used as the modulus in both the public and private keys. The Euler’s totient function, `phi`, is calculated as `(p-1) * (q-1)`. The public exponent `e` is set to the common value `65537`, and the private exponent `d` is calculated as the modular inverse of `e` modulo `phi` using the `invmod` function from the libnum library.
