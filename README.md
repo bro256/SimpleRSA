@@ -36,3 +36,13 @@ python rsa.py [message] [key_size]
 ### Key Generation
 
 The program begins by generating two large prime numbers, `p` and `q`, using the `getPrime` function from the PyCryptodome library. The product of these two primes, `n`, is used as the modulus in both the public and private keys. The Euler’s totient function, `phi`, is calculated as `(p-1) * (q-1)`. The public exponent `e` is set to the common value `65537`, and the private exponent `d` is calculated as the modular inverse of `e` modulo `phi` using the `invmod` function from the libnum library.
+
+### Encryption
+
+1. The message to be encrypted is first converted from a string to a number using `bytes_to_long` from PyCryptodome.
+2. The ciphertext is computed using the formula `ciphertext = plaintext^e % n` where `e` is the public exponent and `n` is the modulus.
+
+### Decryption
+
+1. The ciphertext is decrypted using the private key by calculating `plaintext = ciphertext^d % n`, where `d` is the private exponent.
+2. The decrypted number is converted back to the original message string using `long_to_bytes`.
