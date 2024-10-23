@@ -46,3 +46,9 @@ The program begins by generating two large prime numbers, `p` and `q`, using the
 
 1. The ciphertext is decrypted using the private key by calculating `plaintext = ciphertext^d % n`, where `d` is the private exponent.
 2. The decrypted number is converted back to the original message string using `long_to_bytes`.
+
+### Customization
+
+- The program allows you to pass a custom message and key size as command-line arguments.
+- By default, the key size is set to 2048 bits, but you can specify a different key size to experiment with smaller or larger keys. Be aware that larger keys will take more time to generate and use more resources.
+
