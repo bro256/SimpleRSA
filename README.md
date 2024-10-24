@@ -52,3 +52,7 @@ The program begins by generating two large prime numbers, `p` and `q`, using the
 - The program allows you to pass a custom message and key size as command-line arguments.
 - By default, the key size is set to 2048 bits, but you can specify a different key size to experiment with smaller or larger keys. Be aware that larger keys will take more time to generate and use more resources.
 
+### Limitations
+
+- The RSA algorithm can only encrypt messages that are smaller than the modulus `n`. If the message is too large, an error is printed.
+- This implementation does not include padding schemes (e.g., OAEP) that are essential for secure encryption in real-world scenarios.
