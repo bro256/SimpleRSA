@@ -1,1 +1,2 @@
-pycryptodome==3.23.0
+pycryptodome>=3.19.0
+libnum>=1.8
