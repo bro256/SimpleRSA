@@ -3,7 +3,7 @@ import libnum
 from Crypto.Random import get_random_bytes
 from Crypto.Util.number import getPrime, bytes_to_long, long_to_bytes
 
-# Default key length for primes
+# Default key length (total modulus size in bits)
 key_size = 2048
 # Message to be encrypted and decrypted
 message = "Hello"
@@ -14,19 +14,29 @@ if len(sys.argv) > 1:
 if len(sys.argv) > 2:
     key_size = int(sys.argv[2])
 
-# Generate prime numbers p and q
-prime_p = getPrime(key_size, randfunc=get_random_bytes)
-prime_q = getPrime(key_size, randfunc=get_random_bytes)
-
-# Compute modulus n and Euler's totient (PHI)
-modulus_n = prime_p * prime_q
-totient_phi = (prime_p - 1) * (prime_q - 1)
-
 # Public exponent (standard RSA value)
 public_exponent_e = 65537
 
-# Private exponent d (modular inverse of e modulo PHI)
-private_exponent_d = libnum.invmod(public_exponent_e, totient_phi)
+# Generate prime numbers p and q, each half the target modulus size,
+# retrying if e is not invertible mod phi (rare, but possible)
+while True:
+    prime_p = getPrime(key_size // 2, randfunc=get_random_bytes)
+    prime_q = getPrime(key_size // 2, randfunc=get_random_bytes)
+
+    if prime_p == prime_q:
+        continue
+
+    totient_phi = (prime_p - 1) * (prime_q - 1)
+
+    try:
+        private_exponent_d = libnum.invmod(public_exponent_e, totient_phi)
+        break
+    except Exception:
+        # gcd(e, phi) != 1 for this p, q pair — regenerate
+        continue
+
+# Compute modulus n
+modulus_n = prime_p * prime_q
 
 # Convert the message to a number (plaintext)
 plaintext_m = bytes_to_long(message.encode('utf-8'))
